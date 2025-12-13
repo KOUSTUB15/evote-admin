@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vote</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="header">
+  <h1>Cast Your Vote</h1>
+</header>
+
+<div class="container">
+  <section class="card">
+    <h2>Voting  Panel</h2>
+    <p id="votingIntro"></p>
+
+    <div id="candidateButtons" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+    <div id="afterVote" style="display:none;">
+      <h3>Thanks — your vote is submitted!</h3>
+      <div id="yourVoteBox" class="result-area"></div>
+    </div>
+  </section>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+  // Read USN from URL
+  const params = new URLSearchParams(window.location.search);
+  const studentUSN = params.get("usn");
+
+  if (!studentUSN) {
+    alert("USN missing. Please register again.");
+    window.location.href = "student.html";
+  }
+
+  // Trigger vote loading in script.js
+  window.dispatchEvent(new CustomEvent("load-vote-page", { detail: studentUSN }));
+</script>
+
+</body>
+</html>

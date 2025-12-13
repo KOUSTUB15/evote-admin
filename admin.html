@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Admin - E-Voting Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- LOGIN OVERLAY -->
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <h2>Admin Login</h2>
+      <input id="adminPasswordInput" type="password" placeholder="Enter admin password" />
+      <div style="display:flex;gap:8px;">
+        <button class="btn" id="adminLoginBtn">Login</button>
+      </div>
+      <p style="font-size:13px;color:#666;margin-top:10px;">(Change the password in the script if required.)</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <h1>E-Voting — Admin Dashboard</h1>
+    <nav class="nav" id="mainNav">
+      <button data-target="homeSection" class="active">Home</button>
+      <button data-target="registerCandidateSection">Register Candidate</button>
+      <button data-target="candidateListSection">Candidate List</button>
+      <button data-target="registerStudentSection">Register Student</button>
+      <button data-target="votersSection">Students Who Voted</button>
+      <button data-target="resultsSection">Voting Results</button>
+      <button data-target="needsSection">Student Needs</button>
+      <button id="resetBtn" style="margin-left:8px;" class="secondary small">Reset Election</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- HOME -->
+    <section id="homeSection" class="section active card">
+      <h2>Welcome, Admin</h2>
+      <p>Use the navigation to manage the election: register candidates, register students, view results and see student needs.</p>
+      <p><strong>Note:</strong> Candidate registration is separate from candidate-list display.</p>
+    </section>
+
+    <!-- REGISTER CANDIDATE -->
+    <section id="registerCandidateSection" class="section card">
+      <h2>Register Candidate</h2>
+      <div class="form-row">
+        <div style="flex:2">
+          <label>Candidate Name</label>
+          <input id="candidateName" placeholder="Full name" />
+        
+        
+          <label>Candidate USN (numeric preferred)</label>
+          <input id="candidateUSN" placeholder="USN" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Branch</label>
+          <select id="candidateBranch">
+            <option>Science</option>
+            <option>Commerce</option>
+            <option>Arts</option>
+          </select>
+        </div>
+        <div>
+          <label>Batch (year)</label>
+          <input id="candidateBatch" placeholder="e.g. 2023" />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;">
+        <button class="btn" id="registerCandidateBtn">Register Candidate</button>
+        <button class="btn secondary" id="clearCandidateForm">Clear</button>
+      </div>
+
+      <p style="margin-top:12px;color:#555;font-size:13px;">
+        Registered candidates will be shown in the <strong>Candidate List</strong> tool.
+      </p>
+    </section>
+
+    <!-- CANDIDATE LIST -->
+    <section id="candidateListSection" class="section card">
+      <h2>Registered Candidates</h2>
+      <table id="candidateTable">
+        <thead><tr><th>USN</th><th>Name</th><th>Branch</th><th>Batch</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- REGISTER STUDENT -->
+    <section id="registerStudentSection" class="section card">
+      <h2>Register Student (Voter)</h2>
+      <div class="form-row">
+        <div style="flex:2">
+          <label>Student Name</label>
+          <input id="studentName" placeholder="Full name" />
+        
+        
+          <label>Student USN</label>
+          <input id="studentUSN" placeholder="USN" />
+        </div>
+      </div>
+
+      <div style="max-width:360px;">
+        <label>Branch</label>
+        <select id="studentBranch">
+          <option>Science</option>
+          <option>Commerce</option>
+          <option>Arts</option>
+        </select>
+      </div>
+
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn" id="registerStudentBtn">Register Student</button>
+        <button class="btn secondary" id="clearStudentForm">Clear</button>
+      </div>
+
+      <p style="margin-top:12px;color:#555;font-size:13px;">
+        Registered students are stored so they can vote once using their USN.
+      </p>
+    </section>
+
+    <!-- VOTED STUDENTS -->
+    <section id="votersSection" class="section card">
+      <h2>Students Who Voted</h2>
+      <table id="votersTable">
+        <thead><tr><th>Name</th><th>USN</th><th>Branch</th><th>Voted For</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="resultsSection" class="section card">
+      <h2>Voting Results</h2>
+	  <div style="max-height: 400px; width: 100%;">
+      <canvas id="resultsChart"></canvas>
+      <canvas id="resultsChart"></canvas>
+      <div id="resultsList" style="margin-top:12px;"></div>
+    </section>
+
+    <!-- STUDENT NEEDS -->
+    <section id="needsSection" class="section card">
+      <h2>Student Needs (Messages from Voters)</h2>
+      <table id="needsTable">
+        <thead><tr><th>Student Name</th><th>USN</th><th>Branch</th><th>Message</th><th>Forwarded</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p style="margin-top:10px;color:#555;font-size:13px;">
+        Admin can optionally mark a message as forwarded to lecturers.
+      </p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

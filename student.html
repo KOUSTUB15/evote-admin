@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <h1>Student  Registration</h1>
+  </header>
+
+  <div class="container">
+    <section class="card">
+      <h2>Register / Login (by USN)</h2>
+
+      <div class="form-row">
+        <div style="flex:2">
+          <label>Your Name</label>
+          <input id="stuName" placeholder="Full name" />
+        
+        
+          <label>Your USN</label>
+          <input id="stuUSN" placeholder="USN" />
+        </div>
+      </div>
+
+      <div style="max-width:360px">
+        <label>Branch</label>
+        <select id="stuBranch">
+          <option>Science</option>
+          <option>Commerce</option>
+          <option>Arts</option>
+        </select>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label>Your message / need (optional)</label>
+        <textarea id="stuNeed" placeholder="Write your concern"></textarea>
+      </div>
+
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn" id="stuRegisterBtn">Register & Continue</button>
+        <button class="btn secondary" id="stuClearBtn">Clear</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    // REDIRECT TO vote.html
+    document.getElementById("stuRegisterBtn").onclick = function () {
+      const name = document.getElementById("stuName").value.trim();
+      const usn = document.getElementById("stuUSN").value.trim();
+      const branch = document.getElementById("stuBranch").value;
+      const need = document.getElementById("stuNeed").value.trim();
+
+      if (!name || !usn) {
+        alert("Please enter name and USN.");
+        return;
+      }
+
+      // Save student in localStorage using script.js logic
+      // (triggering script.js functions by custom event)
+      window.dispatchEvent(new CustomEvent("student-register", {
+        detail: { name, usn, branch, need }
+      }));
+
+      // Redirect to separate voting page
+      window.location.href = "vote.html?usn=" + encodeURIComponent(usn);
+    };
+
+    document.getElementById("stuClearBtn").onclick = () => {
+      document.getElementById("stuName").value = "";
+      document.getElementById("stuUSN").value = "";
+      document.getElementById("stuNeed").value = "";
+      document.getElementById("stuBranch").selectedIndex = 0;
+    };
+  </script>
+
+</body>
+</html>
